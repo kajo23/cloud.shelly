@@ -10,6 +10,9 @@ class Shelly25Device extends Homey.Device {
     this.pollDevice(interval);
     this.setAvailable();
 
+    this.log('currently added Shelly 2.5 devices:');
+    this.log(this.getData());
+
     // LISTENERS FOR UPDATING CAPABILITIES
     this.registerCapabilityListener('onoff', (value, opts) => {
       if (value) {

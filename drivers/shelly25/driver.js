@@ -34,6 +34,8 @@ class Shelly25Driver extends Homey.Driver {
 
       util.sendCommand('/shelly', discoveryResult.address, '', '')
         .then(result => {
+          this.log('discovery result is:');
+          this.log(result);
           deviceArray = {
             name: 'Shelly 2.5 Relay ['+ discoveryResult.address +']',
             data: {
@@ -51,8 +53,14 @@ class Shelly25Driver extends Homey.Driver {
             }
           }
           if (result.auth) {
+            this.log('current deviceArray:');
+            this.log(deviceArray);
+            this.log('credentials view launched');
             socket.nextView();
           } else {
+            this.log('current deviceArray:');
+            this.log(deviceArray);
+            this.log('add_device view launched');
             socket.showView('add_device');
           }
         })
