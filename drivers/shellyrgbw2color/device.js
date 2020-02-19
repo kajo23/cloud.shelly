@@ -11,6 +11,9 @@ class ShellyRGBW2ColorDevice extends Homey.Device {
     this.pollDevice(interval);
     this.setAvailable();
 
+    this.log('currently added Shelly RGBW2 Color devices:');
+    this.log(this.getData());
+
     // LISTENERS FOR UPDATING CAPABILITIES
     this.registerCapabilityListener('onoff', (value, opts) => {
       if (value) {

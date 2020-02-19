@@ -12,6 +12,8 @@ class Shelly25Driver extends Homey.Driver {
     let deviceArray = {};
 
     socket.on('list_devices', (data, callback) => {
+      this.log('raw discovery result is:');
+      this.log(discoveryResults);
       const devices = Object.values(discoveryResults).map(discoveryResult => {
         return {
           name: 'Shelly 2.5 Relay ['+ discoveryResult.address +']',
@@ -34,7 +36,7 @@ class Shelly25Driver extends Homey.Driver {
 
       util.sendCommand('/shelly', discoveryResult.address, '', '')
         .then(result => {
-          this.log('discovery result is:');
+          this.log('shelly result is:');
           this.log(result);
           deviceArray = {
             name: 'Shelly 2.5 Relay ['+ discoveryResult.address +']',

@@ -12,6 +12,8 @@ class ShellyRGBW2ColorDriver extends Homey.Driver {
     let deviceArray = {};
 
     socket.on('list_devices', (data, callback) => {
+      this.log('raw discovery result is:');
+      this.log(discoveryResults);
       const devices = Object.values(discoveryResults).map(discoveryResult => {
         return {
           name: 'Shelly RGBW2 Color Mode ['+ discoveryResult.address +']',
@@ -34,6 +36,8 @@ class ShellyRGBW2ColorDriver extends Homey.Driver {
 
       util.sendCommand('/shelly', discoveryResult.address, '', '')
         .then(result => {
+          this.log('shelly result is:');
+          this.log(result);
           deviceArray = {
             name: 'Shelly RGBW2 Color Mode ['+ discoveryResult.address +']',
             data: {
@@ -51,8 +55,14 @@ class ShellyRGBW2ColorDriver extends Homey.Driver {
             }
           }
           if (result.auth) {
+            this.log('current deviceArray:');
+            this.log(deviceArray);
+            this.log('credentials view launched');
             socket.nextView();
           } else {
+            this.log('current deviceArray:');
+            this.log(deviceArray);
+            this.log('add_device view launched');
             socket.showView('add_device');
           }
         })
